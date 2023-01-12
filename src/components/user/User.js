@@ -12,6 +12,18 @@ function User(props){
         setCount(currentCount + 1)
     }
 
+    useEffect(function() {
+        fetch(RANDOM_USER_API).then(res => res.json())
+        .then(data => {
+            const results = data.results;
+            const user = results[0];
+            const username = `${user.name.title} ${user.name.first} ${user.name.last}`;
+            const userEmail = user.email;
+
+            setName(username);
+            setEmail(userEmail);
+        });
+    }, [count]);
 
     return(
         <div>
